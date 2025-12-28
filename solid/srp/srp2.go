@@ -46,7 +46,6 @@ func (u *PlayerUpdater) Update(p *Player, delta float64) {
 }
 
 func main() {
-	// 1️⃣ Criar entidade (dados)
 	player := &Player{
 		X:      0,
 		Y:      0,
@@ -54,19 +53,16 @@ func main() {
 		Sprite: "Hero",
 	}
 
-	// 2️⃣ Criar serviços (regras isoladas)
 	movement := &PlayerMovement{}
 	renderer := &PlayerRenderer{}
 	saver := &PlayerSaver{}
 
-	// 3️⃣ Criar orquestrador (fluxo)
 	updater := &PlayerUpdater{
 		Movement: movement,
 		Renderer: renderer,
 		Saver:    saver,
 	}
 
-	// 4️⃣ Game loop simples
 	lastTime := time.Now()
 
 	for {

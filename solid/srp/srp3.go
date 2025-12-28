@@ -30,7 +30,7 @@ type (
 	}
 )
 
-func (CSVLoader) Load(filename string) ([]Citizen, error) {
+func (*CSVLoader) Load(filename string) ([]Citizen, error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -58,11 +58,11 @@ func (CSVLoader) Load(filename string) ([]Citizen, error) {
 	return citizens, nil
 }
 
-func (CitizenValidator) Validate(c Citizen) bool {
+func (*CitizenValidator) Validate(c Citizen) bool {
 	return c.Age >= 18
 }
 
-func (g GovAPIClient) Send(c Citizen) error {
+func (g *GovAPIClient) Send(c Citizen) error {
 	body, _ := json.Marshal(c)
 	_, err := http.Post(g.Endpoint, "application/json", strings.NewReader(string(body)))
 	return err

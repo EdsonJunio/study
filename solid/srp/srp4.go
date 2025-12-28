@@ -35,7 +35,7 @@ func (EmailNotifier) SendEmail(name string, netPay float64) {
 	fmt.Printf("Enviando email para %s: Você recebeu %.2f\n", name, netPay)
 }
 
-func (p PaymentService) Pay(e Employee) {
+func (p PaymentService) Pay(e *Employee) {
 	netPay := p.Calculator.CalculateTax(e.Salary)
 	p.Repo.SavingPayment(e.ID, netPay)
 	p.Notifier.SendEmail(e.Name, netPay)
@@ -54,5 +54,5 @@ func main() {
 		Notifier:   EmailNotifier{},
 	}
 
-	service.Pay(employee)
+	service.Pay(&employee)
 }

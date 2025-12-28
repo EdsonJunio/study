@@ -55,7 +55,7 @@ func (f *FileLogger) Save(data []byte) error {
 	return err
 }
 
-func (l LogService) Log(entry LogEntry) error {
+func (l *LogService) Log(entry LogEntry) error {
 	entry.CreditCard = l.Masker.MaskCreditCard(entry.CreditCard)
 
 	jsonData, err := l.Formatter.ToJSON(entry)
