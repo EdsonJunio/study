@@ -5,37 +5,31 @@ import (
 	"sync"
 )
 
-type Counter struct {
-	Qtd int
+type Database struct {
 }
 
 var (
-	CounterInstance *Counter
-	once            sync.Once
+	instance *Database
+	once     sync.Once
 )
 
-func GetCounter() *Counter {
+func GetDatabase() *Database {
 	once.Do(func() {
-		CounterInstance = &Counter{}
+		instance = &Database{}
 	})
-	return CounterInstance
-}
-
-func (c *Counter) add() {
-	c.Qtd++
+	return instance
 }
 
 func main() {
+	db1 := GetDatabase()
+	b2 := GetDatabase()
 
-	c1 := GetCounter()
-	c1.add()
-	c1.add()
-	c1.add()
+	fmt.Printf("endereço de memória %p \n", db1)
+	fmt.Printf("endereço de memória %p \n ", b2)
 
-	c2 := GetCounter()
-	c2.add()
-	c2.add()
-	c2.add()
-
-	fmt.Println(c1.Qtd)
+	if db1 == b2 {
+		fmt.Println("É igual!")
+	} else {
+		fmt.Println("É diferente!")
+	}
 }
