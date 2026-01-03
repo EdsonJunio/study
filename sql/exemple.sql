@@ -1,44 +1,25 @@
-SELECT nome, preco FROM PRODUTOS;
+SELECT p.name, COUNT(s.id) AS total_assinaturas
+FROM plans AS p
+INNER JOIN subscriptions AS s ON s.plan_id = p.id
+WHERE s.deleted_at IS NULL
+GROUP BY p.name
+ORDER BY total_assinaturas DESC;
 
-SELECT nome FROM FUNCIONARIOS WHERE salario > 3000;
+-- -------------------------------------------------
+SELECT c.name, SUM(s.total_amount) AS total_amount
+FROM customers AS c
+INNER JOIN sales AS s on s.customer_id = c.id
+WHERE s.deleted_at IS NULL
+GROUP BY c.name
+ORDER BY total_amount DESC
+limit 3;
 
-SELECT * FROM CLIENTES WHERE cidade = 'Salvador';
-
-SELECT nickname, pontuacao FROM JOGADORES order by pontuacao DESC;
-
-
--- --------------------- INNER JOIN -----------------------------
-
-SELECT FUNCIONARIOS.nome, EMPRESAS.nome
-FROM FUNCIONARIOS
-INNER JOIN EMPRESAS ON FUNCIONARIOS.empresa_id = EMPRESAS.id;
-
-SELECT f.nome, e.nome
-FROM funcionarios AS f
-INNER JOIN empresas AS e
-ON f.empresa_id = e.id;
-
-
-
--- --------------------- LEFT JOIN -----------------------------
-SELECT c.nome, p.valor
-FROM clientes c
-LEFT JOIN pedidos p ON c.id = p.cliente_id;
-
-
-------------------------- FASE 4 (RELACIONAMENTOS) -------------
-CREATE TABLE PEDIDOS (
-    id int primary key,
-    valor decimal not null,
-    cliente_id int not null,
-
-    FOREIGN KEY(cliente_id) REFERENCES clientes(id)
-);
-
-
-SELECT f.nome, d.nome
-FROM funcionarios AS f
-INNER JOIN departamentos AS d
-ON f.departamento_id = d.id;
+-- --------------------------------------------------
+SELECT p.name, COUNT(s.id) AS sumplans
+FROM plans AS p
+INNER JOIN subscriptions AS s ON s.plan_id = p.id
+WHERE s.deleted_at IS NULL
+GROUP BY p.name
+HAVING sumplans > 1;
 
 
