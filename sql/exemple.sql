@@ -22,4 +22,10 @@ WHERE s.deleted_at IS NULL
 GROUP BY p.name
 HAVING sumplans > 1;
 
-
+-- ---------------------------------------------------------------------
+SELECT c.name, SUM(s.total_amount) AS total_gasto
+FROM customers AS c
+INNER JOIN sales AS s ON s.customer_id = c.id
+WHERE s.deleted_at IS NULL
+GROUP BY c.name
+HAVING total_gasto > 100000;
