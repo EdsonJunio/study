@@ -53,3 +53,5 @@ AND t.active = 1
 GROUP BY t.name
 order by QuantidadeDeClientes DESC
 LIMIT 1;
+
+-- -------------------------------------------------------------
