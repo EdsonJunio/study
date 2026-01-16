@@ -1,21 +1,15 @@
 package main
 
-import (
-	"errors"
-	"fmt"
-)
+import "fmt"
 
-func dividir(a, b int) (int, error) {
-	if b == 0 {
-		return 0, errors.New("não pode dividir por zero")
-	}
-	return a / b, nil
-}
 func main() {
-	soma, err := dividir(10, 20)
-	if err != nil {
-		fmt.Println(err)
-	}
+	var saldo int64 = 100000
+	var boleto int64 = 100000
 
-	fmt.Println(soma)
+	if novoSaldo := saldo - boleto; novoSaldo >= 0 {
+
+		fmt.Println("Pago. Restante:", novoSaldo)
+	} else {
+		fmt.Println("Falha")
+	}
 }
