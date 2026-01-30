@@ -11,10 +11,8 @@ func main() {
 
 	fmt.Println("Enviados para o buffer sem travar!")
 
-	// Libera espaço no buffer
 	fmt.Println(<-ch)
 
-	// Agora funciona
 	ch <- "Pagamento 4"
 
 	fmt.Println(<-ch)
