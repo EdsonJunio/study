@@ -1,28 +1,18 @@
-package main
+package easy_exercises
 
-import (
-	"fmt"
-)
-
-func CalculateFactorial(n int) (uint64, error) {
-	if n < 0 {
-		return 0, fmt.Errorf("fatorial não definido para números negativos: %d", n)
-	}
-
-	result := uint64(1)
-	for i := 2; i <= n; i++ {
-		result *= uint64(i)
-	}
-
-	return result, nil
-}
+import "fmt"
 
 func main() {
-	n := 5
-	fatorial, err := CalculateFactorial(n)
-	if err != nil {
-		fmt.Println(err)
+	var A int
+	var N = 21
+	fmt.Scan(&A)
+
+	if A <= N {
+		var sub = N - A
+		fmt.Println(sub)
 	} else {
-		fmt.Printf("%d! = %d\n", n, fatorial)
+		var total = A - N
+		fmt.Println(total * 2)
 	}
+
 }

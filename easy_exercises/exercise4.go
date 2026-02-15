@@ -1,21 +1,16 @@
-package main
+package easy_exercises
 
-import (
-	"fmt"
-)
-
-func ReverseString(s string) string {
-	runes := []rune(s)
-
-	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-		runes[i], runes[j] = runes[j], runes[i]
-	}
-
-	return string(runes)
-}
+import "fmt"
 
 func main() {
-	text := "amor"
-	reversed := ReverseString(text)
-	fmt.Println(reversed)
+	var valueA int
+
+	fmt.Scan(&valueA)
+
+	if valueA >= 10 && valueA <= 20 || valueA >= 100 && valueA <= 200 {
+		fmt.Println("Seguro")
+		return
+	}
+
+	fmt.Println("Inseguro")
 }

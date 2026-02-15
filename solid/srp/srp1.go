@@ -2,40 +2,73 @@ package srp
 
 import "fmt"
 
-type TaxCalculator interface {
-	Calculator(amount float64) float64
+type (
+	Funcionario struct {
+		Nome    string
+		Cargo   string
+		Salario float64
+	}
+
+	CalculadoraDeBonus struct{}
+
+	RepositorioFuncionario struct{}
+
+	NotificadorEmail struct{}
+
+	OrquestradorContratacao struct {
+		calculadora CalculadoraDeBonus
+		repositorio RepositorioFuncionario
+		mensagem    NotificadorEmail
+	}
+)
+
+func (c *CalculadoraDeBonus) Calcular(f *Funcionario) float64 {
+	if f.Cargo == "Gerente" {
+		return f.Salario * 0.2
+	}
+	return 0.0
 }
 
-type DefaultTaxCalculator struct {
-}
-
-func (d *DefaultTaxCalculator) Calculator(amount float64) float64 {
-	return amount * 0.15
-}
-
-type Notifier interface {
-	Send(userID int, message string) error
-}
-
-type EmailNotifier struct {
-}
-
-func (e *EmailNotifier) Send(userID int, message string) error {
-	fmt.Println("Enviando email para servidor SMTP...", message)
+func (r *RepositorioFuncionario) Salvar(f *Funcionario) error {
+	fmt.Printf("SQL: INSERT INTO funcionarios VALUES ('%s', %.2f)\n", f.Nome, f.Salario)
 	return nil
 }
 
-type InvoiceService struct {
-	taxCalculator TaxCalculator
-	notifier      Notifier
+func (n *NotificadorEmail) EnviarBoasVindas(f *Funcionario) {
+	fmt.Printf("Enviando email para %s...", f.Nome)
 }
 
-func (i *InvoiceService) GenerateInvoice(userID int, amount float64) error {
-	tax := i.taxCalculator.Calculator(amount)
-	total := amount + tax
+func (o *OrquestradorContratacao) Contratar(f *Funcionario) {
 
-	message := fmt.Sprintf("Olá User %d, sua fatura é %.2f", userID, total)
+	bonus := o.calculadora.Calcular(f)
+	f.Salario += bonus
 
-	return i.notifier.Send(userID, message)
+	err := o.repositorio.Salvar(f)
+	if err != nil {
 
+		fmt.Println("Erro ao salvar")
+
+	}
+
+	o.mensagem.EnviarBoasVindas(f)
+}
+
+func main() {
+	func1 := &Funcionario{
+		Nome:    "Edson",
+		Cargo:   "Gerente",
+		Salario: 100.00,
+	}
+
+	calc := CalculadoraDeBonus{}
+	repo := RepositorioFuncionario{}
+	email := NotificadorEmail{}
+
+	sistema := OrquestradorContratacao{
+		calculadora: calc,
+		repositorio: repo,
+		mensagem:    email,
+	}
+
+	sistema.Contratar(func1)
 }
