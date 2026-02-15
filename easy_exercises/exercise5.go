@@ -1,24 +1,15 @@
-package main
+package easy_exercises
 
-import (
-	"fmt"
-)
-
-func CountVowels(text string) int {
-	count := 0
-
-	for _, char := range text {
-		switch char {
-		case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
-			count++
-		}
-	}
-
-	return count
-}
+import "fmt"
 
 func main() {
-	input := "Golang"
-	total := CountVowels(input)
-	fmt.Printf("A palavra '%s' tem %d vogais.\n", input, total)
+	var text string
+	fmt.Scan(&text)
+
+	if len(text) >= 2 && text[0] == 'G' && text[1] == 'o' {
+		fmt.Println("Válido")
+		return
+	}
+
+	fmt.Println("Inválido")
 }

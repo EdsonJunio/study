@@ -1,21 +1,14 @@
-package main
+package easy_exercises
 
 import "fmt"
 
 func main() {
-	text := "radar"
-	isPalindrome := true
+	var number int
+	fmt.Scan(&number)
 
-	for i := 0; i < len(text)/2; i++ {
-		if text[i] != text[len(text)-1-i] {
-			isPalindrome = false
-			break
+	for i := 0; i <= number; i++ {
+		if i%2 == 0 {
+			fmt.Println(i)
 		}
-	}
-
-	if isPalindrome {
-		fmt.Println("É palíndromo")
-	} else {
-		fmt.Println("Não é palíndromo")
 	}
 }
