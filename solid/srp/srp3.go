@@ -33,7 +33,7 @@ func (v *ValidatorPayment) PaymentValidator(p *Payment) error {
 	return nil
 }
 
-func (l *Logger) LogFinal(p *Payment) error {
+func (l *Logger) LogFinal() error {
 	fmt.Printf("[LOG - %s]: End of processing\n", time.Now().Format(time.RFC3339))
 	return nil
 }
@@ -50,7 +50,7 @@ func (pay *PaymentOrchestrator) ProcessPayment(Payment *Payment) error {
 		return err
 	}
 
-	loggerFinal := pay.Log.LogFinal(Payment)
+	loggerFinal := pay.Log.LogFinal()
 	if err := loggerFinal; err != nil {
 		fmt.Println(err)
 	}
