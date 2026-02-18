@@ -7,6 +7,7 @@ func main() {
 	fmt.Scan(&n)
 
 	numeros := make([]int, n)
+	fmt.Println(numeros)
 
 	for i := 0; i < n; i++ {
 		fmt.Scan(&numeros[i])

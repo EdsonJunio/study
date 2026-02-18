@@ -2,6 +2,7 @@ package easy_exercises
 
 import "fmt"
 
+// divisors
 func main() {
 	var number int
 	fmt.Scan(&number)
