@@ -3,17 +3,25 @@ package main
 import "fmt"
 
 func main() {
-	var n int
-	fmt.Scan(&n)
+	var N, X int
 
-	numeros := make([]int, n)
-	fmt.Println(numeros)
+	fmt.Scan(&N)
 
-	for i := 0; i < n; i++ {
+	numeros := make([]int, N)
+	for i := 0; i < N; i++ {
 		fmt.Scan(&numeros[i])
 	}
 
-	for i := n - 1; i >= 0; i-- {
-		fmt.Print(numeros[i], " ")
+	fmt.Scan(&X)
+
+	posicao := -1
+
+	for i := 0; i < N; i++ {
+		if numeros[i] == X {
+			posicao = i
+			break
+		}
 	}
+
+	fmt.Println(posicao)
 }
